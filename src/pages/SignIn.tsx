@@ -91,8 +91,8 @@ const SignIn = (props: SignInProps) => {
             </form>
           </FormProvider>
         </CardContent>
-        <CardFooter className="text-zinc-500">
-          Forgot your password? <a className="link ml-1 text-zinc-600 hover:text-primary hover:cursor-pointer hover:underline" onClick={() => onLogout()}>Erase your data and start over</a>
+        <CardFooter className="text-zinc-500 md:flex-row flex-col">
+          <span>Forgot your password?</span> <a className="link ml-1 text-zinc-600 hover:text-primary hover:cursor-pointer hover:underline" onClick={() => onLogout()}>Erase your data and start over</a>
         </CardFooter>
       </Card>
     </div>
