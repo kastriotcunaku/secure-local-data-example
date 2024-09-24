@@ -7,7 +7,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { DialogHeader, DialogFooter, DialogClose } from "./ui/dialog";
+import { DialogHeader, DialogFooter } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Textarea } from "./ui/textarea";
+import { useState } from "react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(30),
@@ -32,6 +33,7 @@ type AddNoteDialogProps = {
 };
 
 const AddNoteDialog = (props: AddNoteDialogProps) => {
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,16 +46,17 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     values.created_at = Date.now();
     if (props.onSubmit) props.onSubmit(values);
+    closeDialog();
+  }
+
+  const closeDialog = () => {
+    setOpen(false);
     form.reset();
   }
 
-  const onOpenChange = (open: boolean) => {
-    if (open === false) form.reset();
-  }
-
   return (
-    <Dialog  onOpenChange={onOpenChange}>
-      <DialogTrigger>Add new note</DialogTrigger>
+    <Dialog open={open}>
+      <DialogTrigger onClick={() => setOpen(true)}>Add new note</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add note</DialogTitle>
@@ -91,11 +94,9 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
             />
             <DialogFooter>
               <Button type="submit">Add</Button>
-              <DialogClose asChild onClick={() => close()}>
-                <Button type="button" variant="secondary">
-                  Cancel
-                </Button>
-              </DialogClose>
+              <Button type="button" variant="secondary" onClick={() => closeDialog()}>
+                Cancel
+              </Button>
             </DialogFooter>
           </form>
         </FormProvider>
