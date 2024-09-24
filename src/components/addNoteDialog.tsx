@@ -84,7 +84,7 @@ const AddNoteDialog = (props: AddNoteDialogProps) => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Note</FormLabel>
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
