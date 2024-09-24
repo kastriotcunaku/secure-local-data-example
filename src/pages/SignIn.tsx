@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import CryptoJS from 'crypto-js';
 import { useEffect, useState } from "react";
 import { LOCAL_STORAGE } from "@/lib/services";
 
@@ -43,9 +42,9 @@ const SignIn = (props: SignInProps) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const name = localStorage.getItem('name');
+    const name = localStorage.getItem('name') as string;
     const password = localStorage.getItem('password');
-    const encryptedPassword = CryptoJS.SHA1(values.password + name).toString();
+    const encryptedPassword = LOCAL_STORAGE.encryptPassword(values.password, name);
     if (encryptedPassword !== password) {
       form.setError('password', { message: 'Incorrect password' });
       return;

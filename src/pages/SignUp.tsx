@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import CryptoJS from 'crypto-js';
 import { LOCAL_STORAGE } from "@/lib/services";
 
 const passwordSchema = z
@@ -55,7 +54,7 @@ const SignUp = (props: SignUpProps) => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     localStorage.setItem('name', values.name);
-    const encryptedPassword = CryptoJS.SHA1(values.password + values.name).toString();
+    const encryptedPassword = LOCAL_STORAGE.encryptPassword(values.password, values.name);
     localStorage.setItem('password', encryptedPassword);
     LOCAL_STORAGE.setEncryptionIV(encryptedPassword);
     props.onSuccess();

@@ -49,6 +49,10 @@ export class LocalStorageService<T> {
     }
   };
 
+  encryptPassword = (password: string, name: string): string => {
+    return CryptoJS.SHA256(ENCRYPTION_KEY + password + name).toString();
+  };
+
   private encrypt = (data: T): string => {
     try {
       if (!this.ENCRYPTION_IV) {
