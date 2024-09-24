@@ -1,4 +1,6 @@
-# Secure local data (example)
+# Secure local data (example) 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ae396768-e658-4f90-b2b5-12d817446d19/deploy-status)](https://app.netlify.com/sites/secure-local-data/deploys)
+
 
 This application is an example of securing local data using the [CryptoJS](https://www.npmjs.com/package/crypto-js)  library.
 
