@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Notes from "./pages/Notes";
+import useDocumentVisibility from "./lib/hooks/useDocumentVisibility";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isDocumentVisible = useDocumentVisibility();
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+  useEffect(() => {
+    const name = localStorage.getItem("name");
+    const password = localStorage.getItem("password");
+    if (name && password) {
+      setIsRegistered(true);
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isDocumentVisible) {
+      setIsLoggedIn(false);
+    }
+  }, [isDocumentVisible]);
+
+  const onSignUp = () => {
+    setIsRegistered(true);
+    setIsLoggedIn(true);
+  }
+
+  const onSignIn = () => {
+    setIsLoggedIn(true);
+  }
+
+  const onSignInFailure = () => {
+    setIsRegistered(false);
+    setIsLoggedIn(false);
+  }
+
+
+  if (!isRegistered) {
+    return <SignUp onSuccess={onSignUp} />;
+  }
+
+  if (!isLoggedIn) {
+    return <SignIn onSuccess={onSignIn} onFailure={onSignInFailure} />;
+  }
+  
+  return <Notes />
 }
 
-export default App
+export default App;
