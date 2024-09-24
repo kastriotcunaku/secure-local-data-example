@@ -21,7 +21,7 @@ import { LOCAL_STORAGE } from "@/lib/services";
 
 const passwordSchema = z
   .string()
-  .min(8, { message: 'Password length should be more than 6 characters' })
+  .min(8, { message: 'Password length should be at least 8 characters' })
   .max(20, { message: 'Password length should be less then 20 characters' })
   .refine((password) => /[A-Z]/.test(password), {
     message: 'Password should contain at least one uppercase letter',
