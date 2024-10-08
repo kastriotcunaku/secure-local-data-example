@@ -54,7 +54,7 @@ const SignIn = (props: SignInProps) => {
   }
 
   function onLogout() {
-    localStorage.clear();
+    LOCAL_STORAGE.removeData();
     props.onFailure();
   }
 

@@ -16,5 +16,4 @@ In this example, private notes are protected with an encryption key and encrypti
 ## How to run project locally
 - Clone repository
 - Install node modules using `npm install` command
-- Create one `.env.local` file with keys as in `.env.example`
 - Run the app using `npm run dev`
