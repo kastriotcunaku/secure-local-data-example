@@ -56,7 +56,7 @@ const SignUp = (props: SignUpProps) => {
     localStorage.setItem('name', values.name);
     const encryptedPassword = LOCAL_STORAGE.encryptPassword(values.password, values.name);
     localStorage.setItem('password', encryptedPassword);
-    LOCAL_STORAGE.setEncryptionIV(encryptedPassword);
+    LOCAL_STORAGE.setEncryptionIV(values.password + values.name);
     props.onSuccess();
   }
 

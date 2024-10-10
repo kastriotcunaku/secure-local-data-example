@@ -49,7 +49,7 @@ const SignIn = (props: SignInProps) => {
       form.setError('password', { message: 'Incorrect password' });
       return;
     }
-    LOCAL_STORAGE.setEncryptionIV(encryptedPassword);
+    LOCAL_STORAGE.setEncryptionIV(password + name);
     props.onSuccess();
   }
 
